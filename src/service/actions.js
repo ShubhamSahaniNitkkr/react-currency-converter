@@ -15,9 +15,10 @@ const CCaction = (props) => {
 
   async function fethCurrencyInfo() {
     setloading();
-    let res = await axios.get(`https://api.exchangeratesapi.io/latest`);
+    let res = await axios.get(
+      `https://api.apilayer.com/exchangerates_data/latest?apikey=BZ066WqFMOdlXmidLNCfGxuwgQHcoocz`
+    );
     dispatch({ type: SET_CURRENCY_INFO, payload: res.data });
-    console.log(res.data, "data");
   }
 
   return (
