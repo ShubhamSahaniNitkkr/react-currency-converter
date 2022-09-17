@@ -1,0 +1,2 @@
+# react-currency-converter
+Currency Converter App in React. In this app, You can enter your amount and convert your currency to a different country's currency. You can also easily exchange or reverse the two countries' currency by clicking on the exchange icon.
