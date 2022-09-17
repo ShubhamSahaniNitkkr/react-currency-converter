@@ -27,6 +27,16 @@ export const Home = () => {
     setConvetedValueFn(currencyInfo[toCurrency] * value);
   };
 
+  const setToCurrencyFn = (toCurrency) => {
+    setToCurrency(toCurrency);
+    setConvetedValueFn(currencyInfo[toCurrency] * amount);
+  };
+
+  const setFromCurrencyFn = (fromCurrency) => {
+    setFromCurrency(fromCurrency);
+    fetchConvertValueFn(amount, fromCurrency, toCurrency);
+  };
+
   useEffect(() => {
     fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
   }, []);
@@ -98,7 +108,14 @@ export const Home = () => {
 
   return (
     <>
-      <div className="card p-4 mx-2 home-wrapper">
+      <div
+        className="card p-4 mx-2 home-wrapper"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          setSearchTxt("");
+        }}
+      >
         <div className="card-header header">Currency Converter</div>
         <form action="#">
           <div className="amount">
@@ -115,9 +132,8 @@ export const Home = () => {
               <div className="dropdown show select-box">
                 {renderCurrencyDropdown(
                   fromCurrency,
-                  setFromCurrency,
-                  "fromCurrency",
-                  fetchConvertValueFn(amount, fromCurrency, toCurrency)
+                  setFromCurrencyFn,
+                  "fromCurrency"
                 )}
               </div>
             </div>
@@ -126,13 +142,10 @@ export const Home = () => {
             </div>
             <div className="to">
               <p>To</p>
-              <div
-                className="dropdown show select-box"
-                // onMouseOut={() => setSearchTxt("")}
-              >
+              <div className="dropdown show select-box">
                 {renderCurrencyDropdown(
                   toCurrency,
-                  setToCurrency,
+                  setToCurrencyFn,
                   "toCurrency"
                 )}
               </div>
