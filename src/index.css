@@ -1,0 +1,24 @@
+@font-face {
+  font-family: mySFFont;
+  src: url(SFFont.ttf);
+}
+
+html,
+body {
+  opacity: 1;
+  animation: fadeIn 1s ease;
+  margin: 0;
+  padding: 0;
+  font-family: mySFFont;
+  overflow: hidden scroll;
+  -ms-overflow-style: none;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
