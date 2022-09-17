@@ -3,11 +3,13 @@ import axios from "axios";
 import CCcontext from "./context";
 import CCreducer from "./reducer";
 import { SET_CURRENCY_INFO, SET_LOADING } from "./Types";
+import { currencyCountryList } from "../constants";
 
 const CCaction = (props) => {
   const initialState = {
     currencyInfo: {},
     loading: false,
+    currencyCountryList,
   };
   const [state, dispatch] = useReducer(CCreducer, initialState);
 
@@ -24,6 +26,7 @@ const CCaction = (props) => {
   return (
     <CCcontext.Provider
       value={{
+        currencyCountryList,
         loading: state.loading,
         currencyInfo: state.currencyInfo,
         fethCurrencyInfo,

@@ -69,20 +69,20 @@ form input:focus {
   border: 2px solid #675afe;
 }
 
-.homeWrapper {
+.home-wrapper {
   margin-top: 25%;
   border-radius: 7px;
   background: #fff;
   box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
 }
 
-.homeWrapper header {
+.home-wrapper header {
   font-size: 28px;
   font-weight: 500;
   text-align: center;
 }
 
-.homeWrapper form {
+.home-wrapper form {
   margin: 40px 0 20px 0;
 }
 
@@ -150,4 +150,12 @@ form .drop-list {
   font-size: 16px;
   background: none;
   margin: 0 -5px 0 5px;
+}
+
+.currency-option {
+  padding: 10px;
+}
+
+.bg-whitesmoke {
+  background: whitesmoke;
 }

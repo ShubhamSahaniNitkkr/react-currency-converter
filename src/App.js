@@ -15,7 +15,7 @@ const App = () => {
           <Route element={<NotFound />} />
         </Routes>
       </Router>
-      <Footer title="currency converter" />
+      <Footer title="Currency Converter" />
     </CurrencyConverterState>
   );
 };

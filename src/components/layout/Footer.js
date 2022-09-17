@@ -8,7 +8,7 @@ const Footer = ({ title }) => {
   const CurrencyConverterCont = useContext(CurrencyConverterContext);
 
   return (
-    <div className="footer text-navy p-1 mt-3 fixed-bottom shadow text-center">
+    <div className="footer text-navy p-1 mt-3 fixed-bottom shadow text-center bg-whitesmoke ">
       <div className={isMobile ? "" : ""}>
         <span>{title}</span> &nbsp;
         <i className="fas fa-copyright"></i> &nbsp;
