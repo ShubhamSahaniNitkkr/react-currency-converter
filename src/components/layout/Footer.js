@@ -8,10 +8,10 @@ const Footer = ({ title }) => {
   const CurrencyConverterCont = useContext(CurrencyConverterContext);
 
   return (
-    <div className="footerContainer p-1 mt-3 fixed-bottom shadow text-center">
+    <div className="text-info p-1 mt-3 fixed-bottom shadow text-center">
       <div className={isMobile ? "" : ""}>
-        <i className="fas fa-copyright"></i> copyright &nbsp;
         <span>{title}</span> &nbsp;
+        <i className="fas fa-copyright"></i> &nbsp;
         <span>{new Date().getFullYear()}</span>
       </div>
     </div>
