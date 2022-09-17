@@ -86,29 +86,19 @@ form input:focus {
   margin: 40px 0 20px 0;
 }
 
-.select-box select::-webkit-scrollbar {
-  width: 8px;
-}
-
-.select-box select::-webkit-scrollbar-track {
-  background: #fff;
-}
-
-.select-box select::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 8px;
-  border-right: 2px solid #ffffff;
-}
-
 .drop-list .icon {
   cursor: pointer;
   margin-top: 30px;
   font-size: 22px;
 }
 
+.fs14 {
+  font-size: 14px;
+}
+
 form .exchange-rate {
-  font-size: 17px;
-  margin: 20px 0 30px;
+  font-size: 22px;
+  margin: 20px 0;
 }
 
 form button {
@@ -118,6 +108,10 @@ form button {
   cursor: pointer;
   background: #675afe;
   transition: 0.3s ease;
+}
+
+.disabled {
+  background: gainsboro !important;
 }
 
 form button:hover {
@@ -145,6 +139,35 @@ form .drop-list {
   max-width: 21px;
 }
 
+.select-box .dropdown-menu.show {
+  margin-left: -3px;
+  margin-top: 5px;
+  max-height: 200px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: pointer;
+}
+
+.select-box .dropdown-menu {
+  min-width: 7.3rem;
+  overflow-x: hidden;
+}
+
+.select-box .dropdown-menu::-webkit-scrollbar {
+  width: 5px;
+  background: gainsboro;
+}
+
+.select-box .dropdown-menu::-webkit-scrollbar-thumb {
+  width: 5px;
+  background: #888;
+  border-radius: 8px;
+}
+
+.select-box .dropdown-item {
+  padding: 6px 12px;
+}
+
 .select-box select {
   width: auto;
   font-size: 16px;
@@ -158,4 +181,8 @@ form .drop-list {
 
 .bg-whitesmoke {
   background: whitesmoke;
+}
+
+.dropdown-search {
+  width: 5.9rem;
 }

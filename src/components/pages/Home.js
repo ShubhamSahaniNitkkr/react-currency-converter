@@ -8,39 +8,92 @@ export const Home = () => {
   const {
     loading,
     currencyInfo,
-    fethCurrencyInfo,
+    fethCurrencyInfoFn,
     currencyCountryList,
+    isConverting,
+    convertedValue,
+    fetchConvertValueFn,
+    setConvetedValueFn,
   } = useContext(CurrencyConverterContext);
 
   const [amount, setAmount] = useState(0);
-  const [fromCurrency, setFromCurrency] = useState("AE");
-  const [toCurrency, setToCurrency] = useState("IND");
+  const [fromCurrency, setFromCurrency] = useState("AUD");
+  const [toCurrency, setToCurrency] = useState("USD");
+  const [searchTxt, setSearchTxt] = useState("");
+
+  const setAmountFn = (e) => {
+    const { value } = e.target;
+    setAmount(value);
+    setConvetedValueFn(currencyInfo[toCurrency] * value);
+  };
 
   useEffect(() => {
-    // fethCurrencyInfo();
+    fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
   }, []);
 
-  // if (loading) return <Loader />;
+  if (loading) return <Loader />;
 
-  const renderDropdown = () => {
-    const options = [];
+  const renderCurrencyDropdown = (value, setValue, id) => {
+    const options = [
+      <input
+        type="text"
+        className="form-control m-2 dropdown-search"
+        placeholder="Search"
+        value={searchTxt}
+        onChange={(e) => {
+          let { value } = e.target;
+          setSearchTxt(value);
+        }}
+      ></input>,
+    ];
 
     for (const [key, value] of Object.entries(currencyCountryList)) {
-      options.push(
-        <option
-          className="currency-option"
-          style={{
-            backgroundImage: `url(imgs/bg.jpg)`,
-          }}
-          value={key}
-          key={value}
-        >
-          {key}
-        </option>
-      );
+      if (key.toLowerCase().includes(searchTxt.toLowerCase())) {
+        options.push(
+          <span
+            className="dropdown-item"
+            onClick={(e) => {
+              e.preventDefault();
+              setValue(key);
+            }}
+            key={key}
+          >
+            <img
+              src={`https://flagcdn.com/48x36/${value.toLowerCase()}.png`}
+              alt="flag"
+            />
+            &nbsp; &nbsp; &nbsp;
+            {key}
+          </span>
+        );
+      }
     }
 
-    return options;
+    return (
+      <div className="dropdown show select-box">
+        <span
+          className="btn dropdown-toggle"
+          href="#"
+          role="button"
+          id="fromCurrency"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <img
+            src={`https://flagcdn.com/48x36/${currencyCountryList[
+              value
+            ]?.toLowerCase()}.png`}
+            alt="flag"
+          />
+          &nbsp; &nbsp; &nbsp;
+          {value}
+        </span>
+        <div className="dropdown-menu" aria-labelledby={id}>
+          {options}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -50,14 +103,22 @@ export const Home = () => {
         <form action="#">
           <div className="amount">
             <p>Enter Amount</p>
-            <input type="text" value="1" />
+            <input
+              type="number"
+              value={amount}
+              onChange={(e) => setAmountFn(e)}
+            />
           </div>
           <div className="drop-list">
             <div className="from">
               <p>From</p>
-              <div className="select-box">
-                <img src="https://flagcdn.com/48x36/us.png" alt="flag" />
-                <select>{renderDropdown()}</select>
+              <div className="dropdown show select-box">
+                {renderCurrencyDropdown(
+                  fromCurrency,
+                  setFromCurrency,
+                  "fromCurrency",
+                  fetchConvertValueFn(amount, fromCurrency, toCurrency)
+                )}
               </div>
             </div>
             <div className="icon px-4">
@@ -65,14 +126,38 @@ export const Home = () => {
             </div>
             <div className="to">
               <p>To</p>
-              <div className="select-box">
-                <img src="https://flagcdn.com/48x36/in.png" alt="flag" />
-                <select>{renderDropdown()}</select>
+              <div
+                className="dropdown show select-box"
+                // onMouseOut={() => setSearchTxt("")}
+              >
+                {renderCurrencyDropdown(
+                  toCurrency,
+                  setToCurrency,
+                  "toCurrency"
+                )}
               </div>
             </div>
           </div>
-          <div className="exchange-rate">Getting exchange rate...</div>
-          <button>Convert</button>
+          <div className="exchange-rate" key={convertedValue}>
+            Value : &nbsp;
+            <span className={isConverting ? "fs-10" : ""}>
+              {isConverting
+                ? "Getting exchange rate..."
+                : convertedValue?.toFixed(5)}
+            </span>
+          </div>
+          <button
+            className={amount === 0 ? "disabled" : ""}
+            title={amount === 0 ? "Please enter amount greater than 0" : ""}
+            disabled={amount === 0}
+            onClick={() =>
+              amount !== 0
+                ? fetchConvertValueFn(amount, fromCurrency, toCurrency)
+                : ""
+            }
+          >
+            Convert
+          </button>
         </form>
       </div>
     </>
