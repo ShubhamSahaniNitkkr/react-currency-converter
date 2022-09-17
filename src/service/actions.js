@@ -9,7 +9,7 @@ import {
   SET_CONVERTED_VALUE,
 } from "./Types";
 import { currencyCountryList, AUDrates } from "../constants";
-
+const apiKey = "q0yeGIP8EP7jyFtzDWKigzGVN35kaAbR";
 const CCaction = (props) => {
   const initialState = {
     currencyInfo: {},
@@ -35,7 +35,7 @@ const CCaction = (props) => {
 
     try {
       res = await axios.get(
-        `https://api.apilayer.com/exchangerates_data/latest?base=${from}&apikey=BZ066WqFMOdlXmidLNCfGxuwgQHcoocz`
+        `https://api.apilayer.com/exchangerates_data/latest?base=${from}&apikey=${apiKey}`
       );
       rateObj = res.data.rates;
     } catch (error) {
@@ -51,9 +51,9 @@ const CCaction = (props) => {
     setConverting();
     try {
       let res = await axios.get(
-        `https://api.apilayer.com/exchangerates_data/convert?apikey=BZ066WqFMOdlXmidLNCfGxuwgQHcoocz&to=${to}&from=${from}&amount=${amount}`
+        `https://api.apilayer.com/exchangerates_data/convert?apikey=${apiKey}&to=${to}&from=${from}&amount=${amount}`
       );
-      setConvetedValueFn(res.data.result * amount);
+      setConvetedValueFn(res.data.result);
     } catch (error) {
       console.log("Free API limit excedded");
     }

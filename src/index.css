@@ -14,6 +14,7 @@ body {
   display: flex;
   justify-content: center;
   background-image: url("./imgs/bg.jpg");
+  overflow: hidden;
 }
 
 @keyframes fadeIn {
