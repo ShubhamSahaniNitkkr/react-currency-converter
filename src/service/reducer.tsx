@@ -4,7 +4,7 @@ import {
   SET_CONVERTING,
   SET_CONVERTED_VALUE,
 } from "./Types";
-export default (state, action) => {
+export default (state: any, action: { type: any; payload: any; }) => {
   switch (action.type) {
     case SET_CURRENCY_INFO:
       return { ...state, currencyInfo: action.payload, loading: false };

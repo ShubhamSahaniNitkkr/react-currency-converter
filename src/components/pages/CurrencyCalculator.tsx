@@ -4,46 +4,61 @@ import React, { useContext, useEffect, useState } from "react";
 import { Loader } from "../layout";
 import CurrencyConverterContext from "../../service/context";
 
-export const Home = () => {
+export const CurrencyCalculator = () => {
   const {
     loading,
     currencyInfo,
     fethCurrencyInfoFn,
-    currencyCountryList,
+    currencyCountryList = {},
     isConverting,
     convertedValue,
     fetchConvertValueFn,
     setConvetedValueFn,
   } = useContext(CurrencyConverterContext);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("AUD");
   const [toCurrency, setToCurrency] = useState("USD");
   const [searchTxt, setSearchTxt] = useState("");
 
-  const setAmountFn = (e) => {
+  useEffect(() => {
+    if (fethCurrencyInfoFn)
+      fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
+  }, []);
+
+  const setAmountFn = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setAmount(value);
-    setConvetedValueFn(currencyInfo[toCurrency] * value);
+    setAmount(parseInt(value));
+    // @ts-ignore
+    setConvetedValueFn(currencyInfo[toCurrency] * parseInt(value));
   };
 
-  const setToCurrencyFn = (toCurrency) => {
+  const setToCurrencyFn = (toCurrency: string) => {
     setToCurrency(toCurrency);
+    // @ts-ignore
     setConvetedValueFn(currencyInfo[toCurrency] * amount);
   };
 
-  const setFromCurrencyFn = (fromCurrency) => {
+  const setFromCurrencyFn = (fromCurrency: string) => {
     setFromCurrency(fromCurrency);
     fetchConvertValueFn(amount, fromCurrency, toCurrency);
   };
 
-  useEffect(() => {
-    fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
-  }, []);
+  const swapCurrencyFn = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+    fetchConvertValueFn(amount, fromCurrency, toCurrency);
+  };
 
-  if (loading) return <Loader />;
-
-  const renderCurrencyDropdown = (value, setValue, id) => {
+  const renderCurrencyDropdown = (
+    value: string,
+    setValue: {
+      (fromCurrency: any): void;
+      (toCurrency: any): void;
+      (arg0: string): void;
+    },
+    id: string | undefined
+  ) => {
     const options = [
       <input
         type="text"
@@ -57,7 +72,7 @@ export const Home = () => {
       ></input>,
     ];
 
-    for (const [key, value] of Object.entries(currencyCountryList)) {
+    for (const [key, value] of Object?.entries(currencyCountryList)) {
       if (key.toLowerCase().includes(searchTxt.toLowerCase())) {
         options.push(
           <span
@@ -79,37 +94,44 @@ export const Home = () => {
       }
     }
 
+    let imgSrc = "";
+    if (Object.keys(currencyCountryList).length) {
+      imgSrc = `https://flagcdn.com/48x36/${currencyCountryList[
+        value
+      ].toLowerCase()}.png`;
+    }
+
     return (
       <div className="dropdown show select-box">
         <span
           className="btn dropdown-toggle"
-          href="#"
-          role="button"
-          id="fromCurrency"
+          id="currency-dropdown"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img
-            src={`https://flagcdn.com/48x36/${currencyCountryList[
-              value
-            ]?.toLowerCase()}.png`}
-            alt="flag"
-          />
+          <img src={imgSrc} alt="flag" />
           &nbsp; &nbsp; &nbsp;
           {value}
         </span>
-        <div className="dropdown-menu" aria-labelledby={id}>
+        <div
+          data-testid="currency-dropdown-menu"
+          className="currency-dropdown-menu"
+          aria-labelledby={id}
+        >
           {options}
         </div>
       </div>
     );
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <div
-        className="card p-4 mx-2 home-wrapper"
+        data-testid="currency-calculator"
+        className="card p-4 mx-2 CurrencyCalculator-wrapper"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -138,7 +160,10 @@ export const Home = () => {
               </div>
             </div>
             <div className="icon px-4">
-              <i className="fas fa-exchange-alt"></i>
+              <i
+                className="fas fa-exchange-alt"
+                onClick={() => swapCurrencyFn()}
+              ></i>
             </div>
             <div className="to">
               <p>To</p>
@@ -176,4 +201,4 @@ export const Home = () => {
     </>
   );
 };
-export default Home;
+export default CurrencyCalculator;
