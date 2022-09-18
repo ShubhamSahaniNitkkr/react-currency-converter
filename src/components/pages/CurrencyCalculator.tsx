@@ -9,7 +9,7 @@ export const CurrencyCalculator = () => {
     loading,
     currencyInfo,
     fethCurrencyInfoFn,
-    currencyCountryList,
+    currencyCountryList = {},
     isConverting,
     convertedValue,
     fetchConvertValueFn,
@@ -22,7 +22,8 @@ export const CurrencyCalculator = () => {
   const [searchTxt, setSearchTxt] = useState("");
 
   useEffect(() => {
-    fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
+    if (fethCurrencyInfoFn)
+      fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
   }, []);
 
   const setAmountFn = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +72,7 @@ export const CurrencyCalculator = () => {
       ></input>,
     ];
 
-    for (const [key, value] of Object.entries(currencyCountryList)) {
+    for (const [key, value] of Object?.entries(currencyCountryList)) {
       if (key.toLowerCase().includes(searchTxt.toLowerCase())) {
         options.push(
           <span
@@ -93,15 +94,18 @@ export const CurrencyCalculator = () => {
       }
     }
 
-    const imgSrc = `https://flagcdn.com/48x36/${currencyCountryList[
-      value
-    ].toLowerCase()}.png`;
+    let imgSrc = "";
+    if (Object.keys(currencyCountryList).length) {
+      imgSrc = `https://flagcdn.com/48x36/${currencyCountryList[
+        value
+      ].toLowerCase()}.png`;
+    }
 
     return (
       <div className="dropdown show select-box">
         <span
           className="btn dropdown-toggle"
-          id="fromCurrency"
+          id="currency-dropdown"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
@@ -110,7 +114,11 @@ export const CurrencyCalculator = () => {
           &nbsp; &nbsp; &nbsp;
           {value}
         </span>
-        <div className="dropdown-menu" aria-labelledby={id}>
+        <div
+          data-testid="currency-dropdown-menu"
+          className="currency-dropdown-menu"
+          aria-labelledby={id}
+        >
           {options}
         </div>
       </div>
