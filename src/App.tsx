@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CurrencyConverterState from "./service/actions";
 
 import { Header, Footer } from "./components/layout";
-import { Home, NotFound } from "./components/pages";
+import { CurrencyCalculator, NotFound } from "./components/pages";
 
 const App = () => {
   return (
@@ -11,7 +11,7 @@ const App = () => {
       <Router>
         <Header title="Currency Converter" />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<CurrencyCalculator />} />
           <Route element={<NotFound />} />
         </Routes>
       </Router>

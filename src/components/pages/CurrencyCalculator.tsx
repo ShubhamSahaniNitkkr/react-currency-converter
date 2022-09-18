@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Loader } from "../layout";
 import CurrencyConverterContext from "../../service/context";
 
-export const Home = () => {
+export const CurrencyCalculator = () => {
   const {
     loading,
     currencyInfo,
@@ -16,7 +16,7 @@ export const Home = () => {
     setConvetedValueFn,
   } = useContext(CurrencyConverterContext);
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("AUD");
   const [toCurrency, setToCurrency] = useState("USD");
   const [searchTxt, setSearchTxt] = useState("");
@@ -40,6 +40,12 @@ export const Home = () => {
 
   const setFromCurrencyFn = (fromCurrency: string) => {
     setFromCurrency(fromCurrency);
+    fetchConvertValueFn(amount, fromCurrency, toCurrency);
+  };
+
+  const swapCurrencyFn = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
     fetchConvertValueFn(amount, fromCurrency, toCurrency);
   };
 
@@ -116,7 +122,8 @@ export const Home = () => {
   ) : (
     <>
       <div
-        className="card p-4 mx-2 home-wrapper"
+        data-testid="currency-calculator"
+        className="card p-4 mx-2 CurrencyCalculator-wrapper"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -145,7 +152,10 @@ export const Home = () => {
               </div>
             </div>
             <div className="icon px-4">
-              <i className="fas fa-exchange-alt"></i>
+              <i
+                className="fas fa-exchange-alt"
+                onClick={() => swapCurrencyFn()}
+              ></i>
             </div>
             <div className="to">
               <p>To</p>
@@ -183,4 +193,4 @@ export const Home = () => {
     </>
   );
 };
-export default Home;
+export default CurrencyCalculator;

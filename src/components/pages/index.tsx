@@ -1,4 +1,4 @@
-import Home from "./Home";
+import CurrencyCalculator from "./CurrencyCalculator";
 import NotFound from "./NotFound";
 
-export { Home, NotFound };
+export { CurrencyCalculator, NotFound };
