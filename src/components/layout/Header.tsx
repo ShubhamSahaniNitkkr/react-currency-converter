@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 
-const Header = ({ title }) => {
+type Props = {
+  title: string;
+};
+
+const Header = ({ title }: Props) => {
   return (
     <React.Fragment>
       <nav
@@ -18,14 +21,6 @@ const Header = ({ title }) => {
       </nav>
     </React.Fragment>
   );
-};
-
-Header.defaultProps = {
-  title: "Page Title",
-};
-
-Header.propTypes = {
-  title: PropTypes.string.isRequired,
 };
 
 export default Header;

@@ -1,10 +1,13 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useContext } from "react";
 import { isMobile } from "react-device-detect";
-import PropTypes from "prop-types";
 import CurrencyConverterContext from "../../service/context";
 
-const Footer = ({ title }) => {
+type Props = {
+  title: string;
+};
+
+const Footer = ({ title }: Props) => {
   const CurrencyConverterCont = useContext(CurrencyConverterContext);
 
   return (
@@ -16,14 +19,6 @@ const Footer = ({ title }) => {
       </div>
     </div>
   );
-};
-
-Footer.defaultProps = {
-  companyName: "company name",
-};
-
-Footer.propTypes = {
-  title: PropTypes.string.isRequired,
 };
 
 export default Footer;

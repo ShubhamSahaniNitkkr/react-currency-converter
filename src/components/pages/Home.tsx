@@ -21,29 +21,37 @@ export const Home = () => {
   const [toCurrency, setToCurrency] = useState("USD");
   const [searchTxt, setSearchTxt] = useState("");
 
-  const setAmountFn = (e) => {
-    const { value } = e.target;
-    setAmount(value);
-    setConvetedValueFn(currencyInfo[toCurrency] * value);
-  };
-
-  const setToCurrencyFn = (toCurrency) => {
-    setToCurrency(toCurrency);
-    setConvetedValueFn(currencyInfo[toCurrency] * amount);
-  };
-
-  const setFromCurrencyFn = (fromCurrency) => {
-    setFromCurrency(fromCurrency);
-    fetchConvertValueFn(amount, fromCurrency, toCurrency);
-  };
-
   useEffect(() => {
     fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
   }, []);
 
-  if (loading) return <Loader />;
+  const setAmountFn = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setAmount(parseInt(value));
+    // @ts-ignore
+    setConvetedValueFn(currencyInfo[toCurrency] * parseInt(value));
+  };
 
-  const renderCurrencyDropdown = (value, setValue, id) => {
+  const setToCurrencyFn = (toCurrency: string) => {
+    setToCurrency(toCurrency);
+    // @ts-ignore
+    setConvetedValueFn(currencyInfo[toCurrency] * amount);
+  };
+
+  const setFromCurrencyFn = (fromCurrency: string) => {
+    setFromCurrency(fromCurrency);
+    fetchConvertValueFn(amount, fromCurrency, toCurrency);
+  };
+
+  const renderCurrencyDropdown = (
+    value: string,
+    setValue: {
+      (fromCurrency: any): void;
+      (toCurrency: any): void;
+      (arg0: string): void;
+    },
+    id: string | undefined
+  ) => {
     const options = [
       <input
         type="text"
@@ -79,23 +87,20 @@ export const Home = () => {
       }
     }
 
+    const imgSrc = `https://flagcdn.com/48x36/${currencyCountryList[
+      value
+    ].toLowerCase()}.png`;
+
     return (
       <div className="dropdown show select-box">
         <span
           className="btn dropdown-toggle"
-          href="#"
-          role="button"
           id="fromCurrency"
           data-toggle="dropdown"
           aria-haspopup="true"
           aria-expanded="false"
         >
-          <img
-            src={`https://flagcdn.com/48x36/${currencyCountryList[
-              value
-            ]?.toLowerCase()}.png`}
-            alt="flag"
-          />
+          <img src={imgSrc} alt="flag" />
           &nbsp; &nbsp; &nbsp;
           {value}
         </span>
@@ -106,7 +111,9 @@ export const Home = () => {
     );
   };
 
-  return (
+  return loading ? (
+    <Loader />
+  ) : (
     <>
       <div
         className="card p-4 mx-2 home-wrapper"

@@ -11,7 +11,7 @@ const App = () => {
       <Router>
         <Header title="Currency Converter" />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route element={<NotFound />} />
         </Routes>
       </Router>

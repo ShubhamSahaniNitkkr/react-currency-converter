@@ -9,8 +9,10 @@ import {
   SET_CONVERTED_VALUE,
 } from "./Types";
 import { currencyCountryList, AUDrates } from "../constants";
+
 const apiKey = "q0yeGIP8EP7jyFtzDWKigzGVN35kaAbR";
-const CCaction = (props) => {
+
+const CCaction = (props: { children: React.ReactNode }) => {
   const initialState = {
     currencyInfo: {},
     loading: false,
@@ -20,24 +22,30 @@ const CCaction = (props) => {
   };
   const [state, dispatch] = useReducer(CCreducer, initialState);
 
-  const setLoading = () => dispatch({ type: SET_LOADING });
-  const setCurrencyInfo = (value) =>
+  const setLoading = (value: boolean) =>
+    dispatch({ type: SET_LOADING, payload: value });
+  const setCurrencyInfo = (value: {}) =>
     dispatch({ type: SET_CURRENCY_INFO, payload: value });
-  const setConverting = () => dispatch({ type: SET_CONVERTING });
-  const setConvetedValueFn = (value) =>
+  const setConverting = (value: boolean) =>
+    dispatch({ type: SET_CONVERTING, payload: value });
+  const setConvetedValueFn = (value: number) =>
     dispatch({ type: SET_CONVERTED_VALUE, payload: value });
 
-  async function fethCurrencyInfoFn(amount, from, to) {
-    setLoading();
+  async function fethCurrencyInfoFn(
+    amount: number,
+    from: string | number,
+    to: string | number
+  ) {
+    setLoading(true);
 
-    let res = "";
-    let rateObj = {};
+    let res = null;
+    let rateObj = null;
 
     try {
       res = await axios.get(
         `https://api.apilayer.com/exchangerates_data/latest?base=${from}&apikey=${apiKey}`
       );
-      rateObj = res.data.rates;
+      rateObj = res?.data?.rates;
     } catch (error) {
       rateObj = AUDrates;
       console.log("Free API limit excedded");
@@ -47,8 +55,12 @@ const CCaction = (props) => {
     setConvetedValueFn(rateObj[to] * amount);
   }
 
-  async function fetchConvertValueFn(amount, from, to) {
-    setConverting();
+  async function fetchConvertValueFn(
+    amount: number,
+    from: string | number,
+    to: string | number
+  ) {
+    setConverting(true);
     try {
       let res = await axios.get(
         `https://api.apilayer.com/exchangerates_data/convert?apikey=${apiKey}&to=${to}&from=${from}&amount=${amount}`
