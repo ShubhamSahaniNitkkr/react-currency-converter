@@ -116,7 +116,7 @@ export const CurrencyCalculator = () => {
         </span>
         <div
           data-testid="currency-dropdown-menu"
-          className="currency-dropdown-menu"
+          className="dropdown-menu"
           aria-labelledby={id}
         >
           {options}
