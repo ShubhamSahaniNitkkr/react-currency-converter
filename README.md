@@ -30,7 +30,7 @@ npm install && npm run dev
 
 ## Live Demo
 
-[https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/react-currency-converter/](https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/react-currency-converter/)
+[https://shubhamsahaniNitkkr.github.io/react-currency-converter/](https://shubhamsahaniNitkkr.github.io/react-currency-converter/)
 
 
 ## Performance & UI
