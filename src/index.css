@@ -1,3 +1,8 @@
+*, *::before, *::after { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+body { overflow-x: hidden; }
+@media (max-width: 768px) { .container { padding: 0 12px; } }
+
 @font-face {
   font-family: mySFFont;
   src: url(SFFont.ttf);
@@ -14,7 +19,8 @@ body {
   display: flex;
   justify-content: center;
   background-image: url("./imgs/bg.jpg");
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 @keyframes fadeIn {
@@ -186,4 +192,31 @@ form .drop-list {
 
 .dropdown-search {
   width: 5.9rem;
+}
+
+@media (max-width: 768px) {
+  .CurrencyCalculator-wrapper {
+    margin-top: 10%;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .drop-list {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .drop-list .icon {
+    margin-top: 0;
+    transform: rotate(90deg);
+  }
+
+  .select-box {
+    width: 100% !important;
+  }
+
+  form input,
+  form button {
+    font-size: 16px;
+  }
 }

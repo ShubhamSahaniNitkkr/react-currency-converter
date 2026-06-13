@@ -1,44 +1,44 @@
-# REACT_CURRENCY_CONVERTER
+# Currency Converter
 
-Simple currency converter App in React.
+> Real-time currency conversion with exchange-rate API and offline fallback data.
 
-## Description
+![Screenshot](./screenshot.png)
+> Add `screenshot.png` in project root for preview.
 
-Currency Converter App in React. In this app, You can enter your amount and convert your currency to a different country's currency. You can also easily exchange or reverse the two countries' currency by clicking on the exchange icon.
+## Purpose
 
-## Getting Started
+Real-time currency conversion with exchange-rate API and offline fallback data.
 
-To get a local copy up and running follow these simple example steps.
+## Use Cases
 
-### Installation
+- Currency conversion tool
+- TypeScript + React patterns
+- API error handling
 
-Please follow below steps for setting up your app on your machine.
+## Tech Stack
 
-1. Clone the repo
-   ```sh
-   git clone https://github.com/ShubhamSahaniNitkkr/react-currency-converter
-   ```
-2. Install dependencies
-   ```sh
-   yarn install
-   ```
+- React
+- TypeScript
+- Axios
+- Exchange Rates API
 
-### Executing program
+## How to Run Locally
 
-- yarn start
+```bash
+npm install --legacy-peer-deps && npm run dev
+```
 
-## Authors
+## Live Demo
 
-Contributors names and contact info
+[https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/react-currency-converter/](https://shubhamsahaniNitkkr.github.io/old-basic-projects/projects/react-currency-converter/)
 
- - Shubham Sunny (https://github.com/ShubhamSahaniNitkkr)
 
-## Version History
+## Performance & UI
 
-- 0.1
-  - Initial Release with Basic features
+- Mobile-responsive layout
+- Optimized static assets where applicable
+- Runs independently from the portfolio hub
 
-## License
+---
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
-
+Part of [Old Basic Projects](../README.md) portfolio.

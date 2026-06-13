@@ -10,7 +10,8 @@ import {
 } from "./Types";
 import { currencyCountryList, AUDrates } from "../constants";
 
-const apiKey = "q0yeGIP8EP7jyFtzDWKigzGVN35kaAbR";
+const apiKey =
+  process.env.REACT_APP_EXCHANGE_API_KEY || "q0yeGIP8EP7jyFtzDWKigzGVN35kaAbR";
 
 const CCaction = (props: { children: React.ReactNode }) => {
   const initialState = {
@@ -48,11 +49,10 @@ const CCaction = (props: { children: React.ReactNode }) => {
       rateObj = res?.data?.rates;
     } catch (error) {
       rateObj = AUDrates;
-      console.log("Free API limit excedded");
     }
 
     setCurrencyInfo(rateObj);
-    setConvetedValueFn(rateObj[to] * amount);
+    setConvetedValueFn(rateObj[to as string] * amount);
   }
 
   async function fetchConvertValueFn(
@@ -67,7 +67,7 @@ const CCaction = (props: { children: React.ReactNode }) => {
       );
       setConvetedValueFn(res.data.result);
     } catch (error) {
-      console.log("Free API limit excedded");
+      setConvetedValueFn(AUDrates[to as keyof typeof AUDrates] * amount);
     }
   }
 

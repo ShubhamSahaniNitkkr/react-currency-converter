@@ -4,11 +4,12 @@ import CurrencyConverterState from "./service/actions";
 
 import { Header, Footer } from "./components/layout";
 import { CurrencyCalculator, NotFound } from "./components/pages";
+import getBasename from "./getBasename";
 
 const App = () => {
   return (
     <CurrencyConverterState>
-      <Router>
+      <Router basename={getBasename()}>
         <Header title="Currency Converter" />
         <Routes>
           <Route path="/" element={<CurrencyCalculator />} />
