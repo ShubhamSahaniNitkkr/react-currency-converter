@@ -4,7 +4,8 @@ import {
   SET_CONVERTING,
   SET_CONVERTED_VALUE,
 } from "./Types";
-export default (state: any, action: { type: any; payload: any; }) => {
+
+const reducer = (state: any, action: { type: any; payload: any }) => {
   switch (action.type) {
     case SET_CURRENCY_INFO:
       return { ...state, currencyInfo: action.payload, loading: false };
@@ -18,3 +19,5 @@ export default (state: any, action: { type: any; payload: any; }) => {
       return state;
   }
 };
+
+export default reducer;
