@@ -6,6 +6,7 @@ export const CurrencyCalculator = () => {
   const {
     loading,
     fethCurrencyInfoFn,
+    currencyInfo = {},
     currencyCountryList = {},
     isConverting,
     convertedValue,
@@ -19,21 +20,25 @@ export const CurrencyCalculator = () => {
   const [searchTxt, setSearchTxt] = useState("");
 
   useEffect(() => {
-    if (fethCurrencyInfoFn)
-      fethCurrencyInfoFn(amount, fromCurrency, toCurrency);
+    fethCurrencyInfoFn?.(amount, fromCurrency, toCurrency);
+    // Initial rates load only; currency changes are handled by user actions.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setAmountFn = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setAmount(parseInt(value));
-    // @ts-ignore
-    setConvetedValueFn(currencyInfo[toCurrency] * parseInt(value));
+    const nextAmount = parseInt(value, 10);
+    setAmount(nextAmount);
+    setConvetedValueFn(
+      (currencyInfo as Record<string, number>)[toCurrency] * nextAmount
+    );
   };
 
   const setToCurrencyFn = (toCurrency: string) => {
     setToCurrency(toCurrency);
-    // @ts-ignore
-    setConvetedValueFn(currencyInfo[toCurrency] * amount);
+    setConvetedValueFn(
+      (currencyInfo as Record<string, number>)[toCurrency] * amount
+    );
   };
 
   const setFromCurrencyFn = (fromCurrency: string) => {
