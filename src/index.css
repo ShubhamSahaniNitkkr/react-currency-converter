@@ -77,7 +77,9 @@ form input:focus {
 }
 
 .CurrencyCalculator-wrapper {
-  margin-top: 25%;
+  margin-top: 8%;
+  padding-top: 4.5rem;
+  padding-bottom: 4rem;
   border-radius: 7px;
   background: #fff;
   box-shadow: 7px 7px 20px rgba(0, 0, 0, 0.05);
@@ -196,7 +198,9 @@ form .drop-list {
 
 @media (max-width: 768px) {
   .CurrencyCalculator-wrapper {
-    margin-top: 10%;
+    margin-top: 2%;
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
     width: 100%;
     max-width: 420px;
   }

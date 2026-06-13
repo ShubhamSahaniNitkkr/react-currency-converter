@@ -25,7 +25,7 @@ Real-time currency conversion with exchange-rate API and offline fallback data.
 ## How to Run Locally
 
 ```bash
-npm install --legacy-peer-deps && npm run dev
+npm install && npm run dev
 ```
 
 ## Live Demo
